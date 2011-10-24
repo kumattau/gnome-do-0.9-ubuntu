@@ -1,0 +1,25 @@
+#!/usr/bin/make -f
+#export DH_VERBOSE=1
+
+include /usr/share/quilt/quilt.make
+
+export GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1
+
+CFLAGS ?= -O2 -Wall -g
+LDFLAGS += -Wl,-z,defs -Wl,-O1 -Wl,--as-needed
+
+
+override_dh_auto_configure:
+	patch -p3 < debian/ltmain-add-as-needed.patch
+	dh_auto_configure -- --enable-release MCS=/usr/bin/mono-csc
+
+override_dh_clean:
+	dh_clean
+
+override_dh_install:
+	# The .la file(s) are entirely useless; kill them with fire.
+	find debian/gnome-do -name '*.la' -delete
+	dh_install
+
+%:
+	dh --with autoreconf,quilt,cli $@

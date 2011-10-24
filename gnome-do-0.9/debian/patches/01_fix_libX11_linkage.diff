@@ -1,0 +1,31 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+## 03_fix_libX11_linkage.dpatch by Christopher James Halse Rogers <raof@ubuntu.com>
+##
+## All lines beginning with `## DP:' are a description of the patch.
+## DP: Explicitly link to libX11 to resolve missing symbols
+## DP: on link.
+
+@DPATCH@
+diff -urNad gnome-do-0.4.0.1~/libdo/Makefile.in gnome-do-0.4.0.1/libdo/Makefile.in
+--- gnome-do-0.4.0.1~/libdo/Makefile.am	2008-03-18 13:31:06.000000000 +1100
++++ gnome-do-0.4.0.1/libdo/Makefile.am	2008-03-18 13:57:00.000000000 +1100
+@@ -18,6 +18,6 @@
+ 	eggaccelerators.c
+ 
+ libdo_la_LDFLAGS = -export-dynamic -module -avoid-version
+-libdo_la_LIBADD = $(LIBDO_LIBS)
++libdo_la_LIBADD = $(LIBDO_LIBS) -lX11
+ 
+ maintainer-clean-local:
+diff -urNad gnome-do-0.4.0.1~/libdo/Makefile.in gnome-do-0.4.0.1/libdo/Makefile.in
+--- gnome-do-0.4.0.1~/libdo/Makefile.in	2008-03-18 13:31:06.000000000 +1100
++++ gnome-do-0.4.0.1/libdo/Makefile.in	2008-03-18 13:57:00.000000000 +1100
+@@ -261,7 +261,7 @@
+ 	eggaccelerators.c
+ 
+ libdo_la_LDFLAGS = -export-dynamic -module -avoid-version
+-libdo_la_LIBADD = $(LIBDO_LIBS)
++libdo_la_LIBADD = $(LIBDO_LIBS) -lX11
+ all: all-am
+ 
+ .SUFFIXES:
