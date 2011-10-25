@@ -8,8 +8,8 @@ Description: Patch to add --as-needed magic to ltmain.sh
  the rest of libtool.
 Author: Christopher James Halse Rogers <raof@ubuntu.com>
 
---- libtool-2.2.6b/libltdl/config/ltmain.sh	2010-01-04 05:33:00.810981679 +0000
-+++ libtool-as-needed/libltdl/config/ltmain.sh	2010-01-04 00:18:29.715388881 +0000
+--- a/ltmain.sh	2010-01-04 05:33:00.810981679 +0000
++++ b/ltmain.sh	2010-01-04 00:18:29.715388881 +0000
 @@ -4716,6 +4716,11 @@
  	arg=$func_stripname_result
  	;;

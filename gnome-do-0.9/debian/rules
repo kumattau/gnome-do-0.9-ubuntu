@@ -7,12 +7,13 @@ export GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1
 	dh --with autoreconf,cli,quilt $@
 
 override_dh_clean:
-	patch -R < debian/fix-version.patch
+	patch -p1 -NR < debian/fix-version.patch || rm -f configure.ac.rej
 	dh_clean
 
 override_dh_autoreconf:
-	patch < debian/fix-version.patch
+	patch -p1 < debian/fix-version.patch
 	dh_autoreconf '(intltoolize -c -f --automake && autoreconf -vfi)'
+	patch -p1 < debian/ltmain-add-as-needed.patch
 
 override_dh_auto_configure:
 	dh_auto_configure -- MCS=/usr/bin/mono-csc
