@@ -1,4 +1,0 @@
-01_fix_libX11_linkage
-02_use_cli_for_wrapper
-10_sk_translation_update
-04_dont_disable_deprecated.dpatch

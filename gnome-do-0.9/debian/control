@@ -2,10 +2,10 @@ Source: gnome-do
 Section: gnome
 Priority: optional
 Maintainer: Debian CLI Applications Team <pkg-cli-apps-team@lists.alioth.debian.org>
-Uploaders: Christopher James Halse Rogers <raof@ubuntu.com>, Iain Lane <laney@debian.org>
+Uploaders: Christopher James Halse Rogers <raof@ubuntu.com>, Iain Lane <laney@debian.org>, kumattau <kumattau@gmail.com>
 Build-Depends: debhelper (>= 7.0.50), 
+               quilt,
                dh-autoreconf,
-               quilt (>= 0.46-7~),
                mono-devel (>= 2.4.2.3),
                intltool,
                autoconf,
@@ -15,7 +15,6 @@ Build-Depends: debhelper (>= 7.0.50),
                libndesk-dbus1.0-cil-dev,
                libndesk-dbus-glib1.0-cil-dev,
                libmono-cairo2.0-cil,
-               cli-common-dev (>= 0.5.7),
                pkg-config,
                libgtk2.0-cil-dev (>= 2.10),
                libglib2.0-cil-dev,
@@ -32,21 +31,26 @@ Build-Depends: debhelper (>= 7.0.50),
                libglib2.0-dev,
                libgtk2.0-dev,
                librsvg2-2.0-cil-dev,
-               libwnck1.0-cil-dev
-Standards-Version: 3.9.1
+               libwnck1.0-cil-dev,
+               cli-common-dev (>= 0.8~),
+               libdbus-glib1.0-cil,
+               libdbus1.0-cil-dev,
+               cmigemo
+Standards-Version: 3.9.2
 Homepage: http://do.davebsd.com/
 Vcs-Git: git://git.debian.org/git/pkg-cli-apps/packages/gnome-do.git
 Vcs-Browser: http://git.debian.org/?p=pkg-cli-apps/packages/gnome-do.git
 
 Package: gnome-do
 Architecture: any
-Depends: ${cli:Depends}, 
+Depends: ${cli:Depends},
          ${shlibs:Depends},
          ${misc:Depends},
          librsvg2-common,
          xdg-utils,
          dbus,
-         procps
+         procps,
+         cmigemo
 Recommends: gnome-do-plugins (>= 0.8.3)
 Breaks: gnome-do-plugins (<< 0.8.3)
 Description: Quickly perform actions on your desktop
