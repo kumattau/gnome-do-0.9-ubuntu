@@ -1,3 +1,4 @@
 use-cli-for-wrapper.patch
-add-migemo.patch
 fix-abstract-key-binding-service.patch
+add-migemo.patch
+add-extra-desktop.patch

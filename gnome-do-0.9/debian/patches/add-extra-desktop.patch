@@ -1,0 +1,58 @@
+--- a/Do.Platform.Linux/src/Do.Universe/ApplicationItem.cs
++++ b/Do.Platform.Linux/src/Do.Universe/ApplicationItem.cs
+@@ -249,5 +249,19 @@
+ 			GLib.List glist = new GLib.List (uris as object[], typeof (string), false, true);
+ 			item.Launch (glist, DesktopItemLaunchFlags.OnlyOne);
+ 		}
++
++		public ApplicationItem CloneRenamingNameToCmdline() {
++			var newItem = new ApplicationItem(item);
++			newItem.name = Regex.Replace(Path.GetFileName(newItem.Exec), "%\\S", "");
++			newItem.categories = Enumerable.Empty<string> ();
++			return newItem;
++		}
++
++		public ApplicationItem CloneRenamingNameToDefault() {
++			var newItem = new ApplicationItem(item);
++			newItem.name = item.GetString("Name");
++			newItem.categories = Enumerable.Empty<string> ();
++			return newItem;
++		}
+ 	}
+ }
+--- a/Do.Platform.Linux/src/Do.Universe/ApplicationItemSource.cs
++++ b/Do.Platform.Linux/src/Do.Universe/ApplicationItemSource.cs
+@@ -21,6 +21,7 @@
+ using System.IO;
+ using System.Linq;
+ using System.Collections.Generic;
++using System.Text.RegularExpressions;
+ 
+ using Do.Platform;
+ using Do.Universe;
+@@ -75,11 +76,24 @@
+ 		/// </param>
+ 		IEnumerable<KeyValuePair<string, ApplicationItem>> LoadDesktopFiles (string dir)
+ 		{
+-			return GetDesktopFiles (dir)
++			var appPairs = GetDesktopFiles (dir)
+ 				.Where (ShouldUseDesktopFile)
+ 				.Select (f => new KeyValuePair<string, ApplicationItem> (f, ApplicationItem.MaybeCreateFromDesktopItem (f)))
+ 				.Where (a => a.Value != null)
+ 				.Where (a => ShouldUseApplicationItem (a.Value));
++
++			var newPairs = new List<KeyValuePair<string, ApplicationItem>>();
++			foreach (var appPair in appPairs) {
++				newPairs.Add(appPair);
++
++				newPairs.Add(new KeyValuePair<string, ApplicationItem>(
++					Regex.Replace(appPair.Key, "\\.desktop$", ".cmdline"),
++					appPair.Value.CloneRenamingNameToCmdline()));
++				newPairs.Add(new KeyValuePair<string, ApplicationItem>(
++					Regex.Replace(appPair.Key, "\\.desktop$", ".default"),
++					appPair.Value.CloneRenamingNameToDefault()));
++			}
++			return newPairs;
+ 		}
+ 		
+ 		IEnumerable<string> GetDesktopFiles ()
