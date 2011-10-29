@@ -1,0 +1,11 @@
+------------------------
+gnome-do build and install
+------------------------
+
+gnome-do-0.9 build and install on debian
+
+$ ./INSTALL.sh
+
+- build gnome-do debian package
+- install built package
+
