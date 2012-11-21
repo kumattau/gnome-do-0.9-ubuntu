@@ -3,17 +3,16 @@
 
 export GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1
 
+CFLAGS ?= -O2 -Wall -g
+LDFLAGS += -Wl,-z,defs -Wl,-O1 -Wl,--as-needed
+
+export GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1
+
 %:
 	dh --with autoreconf,cli,quilt $@
 
-override_dh_clean:
-	patch -p1 -NR < debian/fix-version.patch || rm -f configure.ac.rej
-	dh_clean
-
 override_dh_autoreconf:
-	patch -p1 < debian/fix-version.patch
 	dh_autoreconf '(intltoolize -c -f --automake && autoreconf -vfi)'
-	patch -p1 < debian/ltmain-add-as-needed.patch
 
 override_dh_auto_configure:
 	dh_auto_configure -- MCS=/usr/bin/mono-csc
@@ -22,6 +21,9 @@ override_dh_install:
 	# The .la file(s) are entirely useless; kill them with fire.
 	find debian/gnome-do -name '*.la' -delete
 	dh_install
+
+override_dh_auto_test:
+	@echo "Tests disabled; requires running dbus and gconf daemons"
 
 override_dh_clideps:
 	dh_clideps --exclude-moduleref=libmigemo

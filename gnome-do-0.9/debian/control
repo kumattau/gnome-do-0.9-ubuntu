@@ -5,16 +5,17 @@ Maintainer: Debian CLI Applications Team <pkg-cli-apps-team@lists.alioth.debian.
 Uploaders: Christopher James Halse Rogers <raof@ubuntu.com>, Iain Lane <laney@debian.org>, kumattau <kumattau@gmail.com>
 Build-Depends: debhelper (>= 7.0.50), 
                quilt,
-               dh-autoreconf,
+               dh-autoreconf (>= 4),
                mono-devel (>= 2.4.2.3),
                intltool,
                autoconf,
                autotools-dev,
                automake,
-    	       libtool,
+               libtool,
                libndesk-dbus1.0-cil-dev,
                libndesk-dbus-glib1.0-cil-dev,
                libmono-cairo2.0-cil,
+               cli-common-dev (>= 0.5.7),
                pkg-config,
                libgtk2.0-cil-dev (>= 2.10),
                libglib2.0-cil-dev,
@@ -32,10 +33,8 @@ Build-Depends: debhelper (>= 7.0.50),
                libgtk2.0-dev,
                librsvg2-2.0-cil-dev,
                libwnck1.0-cil-dev,
-               cli-common-dev (>= 0.8~),
-               libdbus-glib1.0-cil,
-               libdbus1.0-cil-dev,
-               cmigemo
+               libmigemo1,
+               nunit-console
 Standards-Version: 3.9.2
 Homepage: http://do.davebsd.com/
 Vcs-Git: git://git.debian.org/git/pkg-cli-apps/packages/gnome-do.git
@@ -50,7 +49,8 @@ Depends: ${cli:Depends},
          xdg-utils,
          dbus,
          procps,
-         cmigemo
+         cmigemo,
+         libmigemo1
 Recommends: gnome-do-plugins (>= 0.8.3)
 Breaks: gnome-do-plugins (<< 0.8.3)
 Description: Quickly perform actions on your desktop

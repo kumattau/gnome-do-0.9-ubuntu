@@ -1,4 +1,4 @@
+fix_libX11_linkage.patch
 use-cli-for-wrapper.patch
-fix-abstract-key-binding-service.patch
 add-migemo.patch
 add-extra-desktop.patch

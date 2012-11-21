@@ -13,7 +13,7 @@
  	public static class Util
  	{
 +
-+		private static KaoriYa.Migemo.Migemo migemo = new KaoriYa.Migemo.Migemo("/usr/share/migemo/utf-8/migemo-dict");
++		private static KaoriYa.Migemo.Migemo migemo = new KaoriYa.Migemo.Migemo("/usr/share/cmigemo/utf-8/migemo-dict");
 +
  		public static string FormatCommonSubstrings (string main, string other, string format)
  		{
